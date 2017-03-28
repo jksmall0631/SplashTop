@@ -2,9 +2,9 @@
   "name": "SplashTop",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./app/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server app/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,20 @@
     "url": "https://github.com/noahpeden/SplashTop/issues"
   },
   "homepage": "https://github.com/noahpeden/SplashTop#readme",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.2.2",
+    "babel-preset-react": "^6.23.0",
+    "css-loader": "^0.27.3",
+    "style-loader": "^0.16.1",
+    "webpack": "^1.9.12",
+    "webpack-dev-server": "^1.9.0"
+  },
   "dependencies": {
-    "electron": "^1.6.2"
+    "electron": "^1.6.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   }
 }
