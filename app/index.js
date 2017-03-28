@@ -1,14 +1,30 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react';
+import { render } from 'react-dom';
+import { hashHistory } from 'react-router';
+import { AppContainer } from 'react-hot-loader';
+import { syncHistoryWithStore } from 'react-router-redux';
+import Root from './containers/Root';
+import configureStore from './store/configureStore';
+import './app.global.css';
 
-var Entry = React.createClass({
-  render: function(){
-    return (
-      <div className="myDiv">
-        Hello Electron! 
-      </div>
-    )
-  }
-});
+const store = configureStore();
+const history = syncHistoryWithStore(hashHistory, store);
 
-ReactDOM.render(<Entry />, document.getElementById('content'));
+render(
+  <AppContainer>
+    <Root store={store} history={history} />
+  </AppContainer>,
+  document.getElementById('root')
+);
+
+if (module.hot) {
+  module.hot.accept('./containers/Root', () => {
+    const NextRoot = require('./containers/Root'); // eslint-disable-line global-require
+    render(
+      <AppContainer>
+        <NextRoot store={store} history={history} />
+      </AppContainer>,
+      document.getElementById('root')
+    );
+  });
+}
