@@ -6,6 +6,17 @@ import natGeo from '../assets/nat-geo.jpg'
 
 
 export default class Home extends Component {
+
+  grabPhotos = () => {
+    const url = 'https://api.unsplash.com/photos/random/?count=6&client_id=b7d9a9651c33cfd071e500dd4494a5c3c6653e34f38ea82fc889cf6aff8b0def'
+    fetch(url)
+    .then(response => response.json())
+    .then(response => {
+      this.props.storePics(response)
+      browserHistory.push('/unsplash');
+    })
+  }
+
   render() {
     return (
       <div>
@@ -14,8 +25,8 @@ export default class Home extends Component {
               <div className={styles.hovereffect}>
                   <img className={styles.imgresponsive} src={natGeo} alt=""/>
                   <div className={styles.overlay}>
-                     <h2>National Geographic</h2>
-                     <a className={styles.info} href="#">Click for photos</a>
+                     <h2>Hover effect 4</h2>
+                     <a className={styles.info} onClick={() => this.grabPhotos()}>link here</a>
                   </div>
               </div>
           </div>
