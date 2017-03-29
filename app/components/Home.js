@@ -25,12 +25,10 @@ export default class Home extends Component {
                      <h2>Hover effect 4</h2>
                      <Link to='/unsplash' className={styles.info} onClick={() => this.grabPhotos()}>link here</Link>
                   </div>
-
               </div>
             </div>
           </div>
         </div>
-      </div>
     )
   }
 }
