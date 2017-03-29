@@ -5,7 +5,7 @@ import UnSplash from '../components/UnSplash';
 
 const mapStateToProps = (state) => {
   return {
-    pics: state.storePics.pics
+    pics: state.storePics
   }
 }
 

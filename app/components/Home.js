@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import styles from './Home.css';
+import hashHistory from 'react-router';
 import natGeo from '../assets/nat-geo.jpg'
 
 
@@ -13,7 +14,6 @@ export default class Home extends Component {
     .then(response => response.json())
     .then(response => {
       this.props.storePics(response)
-      browserHistory.push('/unsplash');
     })
   }
 
@@ -26,7 +26,7 @@ export default class Home extends Component {
                   <img className={styles.imgresponsive} src={natGeo} alt=""/>
                   <div className={styles.overlay}>
                      <h2>Hover effect 4</h2>
-                     <a className={styles.info} onClick={() => this.grabPhotos()}>link here</a>
+                     <Link to='/unsplash' className={styles.info} onClick={() => this.grabPhotos()}>link here</Link>
                   </div>
               </div>
           </div>
