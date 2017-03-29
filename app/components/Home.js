@@ -22,7 +22,7 @@ export default class Home extends Component {
             <div className={styles.hovereffect}>
               <img className={styles.imgresponsive} src={natGeo} alt='National Geographic image' />
               <div className={styles.overlay}>
-                <h2>Hover effect 4</h2>
+                <h2>UnSplash</h2>
                 <Link to='/unsplash' className={styles.info} onClick={() => this.grabPhotos()}>link here</Link>
               </div>
             </div>

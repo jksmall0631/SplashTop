@@ -6,7 +6,7 @@ const request = require('request')
 
 const download = (url, filename, callback) => {
   request.head(url, (err, res, body) => {
-    request(url).pipe(fs.createWriteStream(filename)).on('close', callback)
+    request(url).pipe(fs.createWriteStream('/tmp/' + filename)).on('close', callback)
   })
 }
 
