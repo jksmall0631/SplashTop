@@ -1,11 +1,14 @@
-// @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { storePics } from '../actions';
 import Home from '../components/Home';
 
-export default class HomePage extends Component {
-  render() {
-    return (
-      <Home />
-    );
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storePics: (pics) => {
+      dispatch(storePics(pics))
+    }
   }
 }
+
+export default connect(null, mapDispatchToProps)(Home)

@@ -5,9 +5,6 @@ import { routerMiddleware, push } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 
-
-
-
 const actionCreators = {
 
   push,
