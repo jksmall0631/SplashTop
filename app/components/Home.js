@@ -11,7 +11,6 @@ export default class Home extends Component {
     .then(response => response.json())
     .then(response => {
       this.props.storePics(response)
-      browserHistory.push('/unsplash')
     })
   }
 
@@ -20,11 +19,13 @@ export default class Home extends Component {
       <div>
         <div className={styles.container} data-tid='container'>
           <div className={styles.natgeo}>
-            <div className={styles.hovereffect}>
-              <img className={styles.imgresponsive} src={natGeo} alt='' />
-              <div className={styles.overlay}>
-                <h2>Hover effect 4</h2>
-                <a className={styles.info} onClick={() => this.grabPhotos()}>link here</a>
+              <div className={styles.hovereffect}>
+                  <img className={styles.imgresponsive} src={natGeo} alt=""/>
+                  <div className={styles.overlay}>
+                     <h2>Hover effect 4</h2>
+                     <Link to='/unsplash' className={styles.info} onClick={() => this.grabPhotos()}>link here</Link>
+                  </div>
+
               </div>
             </div>
           </div>
