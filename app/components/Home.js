@@ -44,11 +44,12 @@ export default class Home extends Component {
               <img className={styles.imgresponsive} src='https://source.unsplash.com/random/300x350' alt='Unsplash Image Placeholder' />
               <div className={styles.overlay}>
                 <h2>UnSplash</h2>
-                <Link to='/unsplash' className={styles.info} onClick={() => this.grabPhotos()}>link here</Link>
+                <Link to='/unsplash' className={styles.info} onClick={() => this.grabPhotos()}>Click for more backgrounds</Link>
               </div>
             </div>
           </div>
         </div>
+        <Link to='/camera'>Camera</Link>
       </div>
     )
   }
