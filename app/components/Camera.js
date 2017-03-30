@@ -5,36 +5,42 @@ const remote = require('electron').remote
 const ipcRenderer = require('electron').ipcRenderer
 
 export default class Camera extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
-      screenshot: ''
+      screenshot: null,
+      created_at: null,
     }
     this.screenshot = this.screenshot.bind(this)
   }
 
-  screenshot(){
+  screenshot() {
     console.log(this)
-    var screenshot = this.refs.webcam.getScreenshot();
+    var screenshot = this.refs.webcam.getScreenshot()
+
     this.setState({
-      screenshot: screenshot
+      screenshot: screenshot,
+      created_at: new Date(),
     })
   }
 
-  // savePic() {
-  //   let screenshot = this.screenshot()
-  //   const fileName = this.props.id + '.png'
-  //   ipcRenderer.send('save-photo', { fileName, screenshot })
-  //   ipcRenderer.once('save-photo-reply', (event, arg) => {
-  //     console.log(arg)
-  //   })
-  // }
+  savePic = () => {
+    let screenshot = this.state.screenshot
+    const fileName = this.state.created_at.toISOString() + '.png'
+    console.log('fileName:', fileName);
+    ipcRenderer.send('save-screenshot', { fileName, screenshot })
+    ipcRenderer.once('save-screenshot-reply', (event, arg) => {
+      console.log(arg)
+    })
+  }
 
-  render(){
+  render() {
     return (
       <div>
-        <Webcam />
-        <button onClick={this.screenshot}>Set Background</button>
+        <Webcam audio={false} ref='webcam' screenshotFormat='image/png' />
+        <button onClick={this.screenshot}>Take Photo</button>
+        <img src={this.state.screenshot} />
+        <button onClick={this.savePic}>Set Wallpaper</button>
       </div>
     )
   }

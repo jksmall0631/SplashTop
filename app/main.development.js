@@ -3,7 +3,7 @@ import { app, BrowserWindow, ipcMain } from 'electron'
 import MenuBuilder from './menu'
 const fs = require('fs')
 const request = require('request')
-const wallpaper = require('wallpaper');
+const wallpaper = require('wallpaper')
 
 const download = (url, filename, callback) => {
   request.head(url, (err, res, body) => {
@@ -83,13 +83,28 @@ ipcMain.on('save-photo', (event, args) => {
 
   download(url, fileName, () => setWallpaper(fileName))
 
-  event.sender.send('save-photo-reply', 'pong');
+  event.sender.send('save-photo-reply', 'pong')
+})
+
+ipcMain.on('save-screenshot', (event, args) => {
+  const { fileName, screenshot } = args
+
+  const base64data = screenshot.replace(/^data:image\/png;base64,/, '')
+  fs.writeFile('/tmp/' + fileName, base64data, 'base64', (err) => {
+    if (err) {
+      console.log(err)
+    } else {
+      setWallpaper(fileName)
+    }
+  })
+
+  event.sender.send('save-screenshot-reply', 'yay')
 })
 
 const setWallpaper = (fileName) => {
   wallpaper.set('/tmp/' + fileName).then(() => {
-    console.log('done');
-  });
+    console.log('done')
+  })
 }
 
 exports.download = download
