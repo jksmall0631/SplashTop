@@ -3,14 +3,14 @@
  * Build config for development process that uses Hot-Module-Replacement
  * https://webpack.js.org/concepts/hot-module-replacement/
  */
-import path from 'path';
-import webpack from 'webpack';
-import merge from 'webpack-merge';
-import { spawn } from 'child_process';
-import baseConfig from './webpack.config.base';
+import path from 'path'
+import webpack from 'webpack'
+import merge from 'webpack-merge'
+import { spawn } from 'child_process'
+import baseConfig from './webpack.config.base'
 
-const port = process.env.PORT || 3000;
-const publicPath = `http://localhost:${port}/dist`;
+const port = process.env.PORT || 3000
+const publicPath = `http://localhost:${port}/dist`
 
 export default merge(baseConfig, {
   devtool: 'inline-source-map',
@@ -23,7 +23,7 @@ export default merge(baseConfig, {
   ],
 
   output: {
-    publicPath: `http://localhost:${port}/dist/`
+    publicPath: `http://localhost:${port}/dist/`,
   },
 
   module: {
@@ -31,29 +31,43 @@ export default merge(baseConfig, {
       {
         test: /\.global\.css$/,
         use: [
-          { loader: 'style-loader' },
+          {
+            loader: 'style-loader',
+          },
           {
             loader: 'css-loader',
             options: {
               sourceMap: true,
             },
-          }
-        ]
+          },
+        ],
       },
       {
         test: /^((?!\.global).)*\.css$/,
         use: [
-          { loader: 'style-loader' },
+          {
+            loader: 'style-loader',
+          },
           {
             loader: 'css-loader',
             options: {
               modules: true,
               sourceMap: true,
               importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]',
-            }
+              localIdentName: '[path]__[name]__[local]__[hash:base64:5]',
+            },
           },
-        ]
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                require('precss'),
+                require('autoprefixer'),
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -62,7 +76,7 @@ export default merge(baseConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
-          }
+          },
         },
       },
       {
@@ -72,8 +86,8 @@ export default merge(baseConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
-          }
-        }
+          },
+        },
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
@@ -81,9 +95,9 @@ export default merge(baseConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            mimetype: 'application/octet-stream'
-          }
-        }
+            mimetype: 'application/octet-stream',
+          },
+        },
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
@@ -96,14 +110,14 @@ export default merge(baseConfig, {
           options: {
             limit: 10000,
             mimetype: 'image/svg+xml',
-          }
-        }
+          },
+        },
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
         use: 'url-loader',
-      }
-    ]
+      },
+    ],
   },
 
   plugins: [
@@ -120,11 +134,11 @@ export default merge(baseConfig, {
      * development checks
      */
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify('development'),
     }),
     // turn debug mode on.
     new webpack.LoaderOptionsPlugin({
-      debug: true
+      debug: true,
     }),
   ],
 
@@ -143,8 +157,8 @@ export default merge(baseConfig, {
       if (process.env.START_HOT) {
         spawn('npm', ['run', 'start-hot'], { shell: true, env: process.env, stdio: 'inherit' })
           .on('close', code => process.exit(code))
-          .on('error', spawnError => console.error(spawnError));
+          .on('error', spawnError => console.error(spawnError))
       }
-    }
+    },
   },
-});
+})

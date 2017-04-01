@@ -1,8 +1,9 @@
 // @flow
 import React, { Component } from 'react'
+import MenuItem from './MenuItem'
 import { Link } from 'react-router'
 import styles from './Home.css'
-import natGeo from '../assets/nat-geo.jpg'
+import Webcam from 'react-webcam'
 
 export default class Home extends Component {
   constructor(){
@@ -37,19 +38,24 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div>
-        <div className={styles.container} data-tid='container'>
-          <div className={styles.natgeo}>
-            <div className={styles.hovereffect}>
-              <img className={styles.imgresponsive} src='https://source.unsplash.com/random/300x350' alt='Unsplash Image Placeholder' />
-              <div className={styles.overlay}>
-                <h2>UnSplash</h2>
-                <Link to='/unsplash' className={styles.info} onClick={() => this.grabPhotos()}>Click for more backgrounds</Link>
-              </div>
-            </div>
-          </div>
+      <div className={styles.grid}>
+        <div>
+          <Link className={styles.cameraButton} to='/camera'>
+            <Webcam audio={false} height={300} width={350}/>
+            <h3 styleName='webcam-label'>Webcam</h3>
+          </Link>
         </div>
-        <Link to='/camera'>Camera</Link>
+
+        <div className={styles.container}>
+          <MenuItem
+            name='Unsplash'
+            src='https://source.unsplash.com/random/350x300'
+            route='/unsplash'
+            handleClick={this.grabPhotos}
+          />
+
+          {/* <MenuItem name='Something Else' src='../assets/web-camera-icon.png' route='/camera' /> */}
+        </div>
       </div>
     )
   }
