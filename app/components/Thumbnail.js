@@ -13,11 +13,6 @@ export default class Thumbnail extends Component {
     ipcRenderer.once('save-photo-reply', (event, arg) => {
       console.log(arg)
     })
-
-    // console.log('savePic()')
-    // // download( this.props.urls.full, this.props.urls.id + '.png', () => {
-    //   console.log('boom')
-    // })
   }
 
   render() {

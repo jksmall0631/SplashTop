@@ -1,10 +1,12 @@
-import { combineReducers } from 'redux';
-import { routerReducer as routing } from 'react-router-redux';
-import StorePics from './StorePics';
+import { combineReducers } from 'redux'
+import { routerReducer as routing } from 'react-router-redux'
+import pics from './pics'
+import selfies from './selfies'
 
 const rootReducer = combineReducers({
-  StorePics,
-  routing
-});
+  pics,
+  selfies,
+  routing,
+})
 
-export default rootReducer;
+export default rootReducer

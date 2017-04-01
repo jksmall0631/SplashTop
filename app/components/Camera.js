@@ -8,27 +8,21 @@ import { Button } from 'react-desktop/macOs'
 export default class Camera extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      screenshot: null,
-      created_at: null,
-    }
     this.screenshot = this.screenshot.bind(this)
   }
 
   screenshot() {
     console.log(this)
-    var screenshot = this.refs.webcam.getScreenshot()
+    const selfie = this.refs.webcam.getScreenshot()
+    const createdAt = new Date();
 
-    this.setState({
-      screenshot: screenshot,
-      created_at: new Date(),
-    })
+    this.props.appendSelfie(selfie, createdAt)
   }
 
   savePic = () => {
-    let screenshot = this.state.screenshot
-    const fileName = this.state.created_at.toISOString() + '.png'
-      ipcRenderer.send('save-screenshot', { fileName, screenshot })
+    let screenshot = this.props.selfies.selfie
+    const fileName = this.props.selfies.createdAt.toISOString() + '.png'
+    ipcRenderer.send('save-screenshot', { fileName, screenshot })
     ipcRenderer.once('save-screenshot-reply', (event, arg) => {
       console.log(arg)
     })
@@ -39,7 +33,7 @@ export default class Camera extends Component {
       <div>
         <Webcam audio={false} ref='webcam' screenshotFormat='image/png' />
         <Button onClick={this.screenshot}>Take Photo</Button>
-        <img src={this.state.screenshot} />
+        <img src={this.props.selfies.selfie} />
 
         <Button onClick={this.savePic}>Set Wallpaper</Button>
       </div>
