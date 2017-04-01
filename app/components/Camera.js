@@ -3,6 +3,7 @@ import Webcam from 'react-webcam'
 import electron from 'electron'
 const remote = require('electron').remote
 const ipcRenderer = require('electron').ipcRenderer
+import { Button } from 'react-desktop/macOs'
 
 export default class Camera extends Component {
   constructor(props) {
@@ -27,8 +28,7 @@ export default class Camera extends Component {
   savePic = () => {
     let screenshot = this.state.screenshot
     const fileName = this.state.created_at.toISOString() + '.png'
-    console.log('fileName:', fileName);
-    ipcRenderer.send('save-screenshot', { fileName, screenshot })
+      ipcRenderer.send('save-screenshot', { fileName, screenshot })
     ipcRenderer.once('save-screenshot-reply', (event, arg) => {
       console.log(arg)
     })
@@ -38,9 +38,10 @@ export default class Camera extends Component {
     return (
       <div>
         <Webcam audio={false} ref='webcam' screenshotFormat='image/png' />
-        <button onClick={this.screenshot}>Take Photo</button>
+        <Button onClick={this.screenshot}>Take Photo</Button>
         <img src={this.state.screenshot} />
-        <button onClick={this.savePic}>Set Wallpaper</button>
+
+        <Button onClick={this.savePic}>Set Wallpaper</Button>
       </div>
     )
   }

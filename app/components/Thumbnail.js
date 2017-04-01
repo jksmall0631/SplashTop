@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import electron from 'electron'
 const remote = require('electron').remote
-// const { download } = remote.require('app')
 const ipcRenderer = require('electron').ipcRenderer
 
 export default class Thumbnail extends Component {
