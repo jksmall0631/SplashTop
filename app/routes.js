@@ -4,7 +4,7 @@ import { Route, IndexRoute } from 'react-router'
 import App from './containers/App'
 import HomePage from './containers/HomePage'
 import UnSplash from './containers/UnSplash'
-import Camera from './components/Camera'
+import Camera from './containers/Camera'
 
 export default (
   <Route path="/" component={App}>

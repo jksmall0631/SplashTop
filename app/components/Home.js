@@ -6,17 +6,17 @@ import styles from './Home.css'
 import Webcam from 'react-webcam'
 
 export default class Home extends Component {
-  constructor(){
+  constructor() {
     super()
     this.grabPhotos = this.grabPhotos.bind(this)
   }
 
-  componentWillMount(){
-    document.addEventListener("keydown", this.handleKeyDown.bind(this))
+  componentWillMount() {
+    document.addEventListener('keydown', this.handleKeyDown.bind(this))
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyDown.bind(this))
+    document.removeEventListener('keydown', this.handleKeyDown.bind(this))
   }
 
   handleKeyDown(e) {
@@ -40,13 +40,13 @@ export default class Home extends Component {
     return (
       <div className={styles.grid}>
         <div>
-          <Link className={styles.cameraButton} to='/camera'>
+          <Link to='/camera'>
             <Webcam audio={false} height={300} width={350}/>
-            <h3 styleName='webcam-label'>Webcam</h3>
+            <h2>Webcam</h2>
           </Link>
         </div>
 
-        <div className={styles.container}>
+        <div>
           <MenuItem
             name='Unsplash'
             src='https://source.unsplash.com/random/350x300'
