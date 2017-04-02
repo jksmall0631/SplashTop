@@ -84,20 +84,29 @@ ipcMain.on('save-photo', (event, args) => {
   .catch(err => event.sender.send('save-photo-error', err))
 })
 
-ipcMain.on('save-screenshot', (event, args) => {
+ipcMain.on('save-selfie', (event, args) => {
   const { fileName, img } = args
-  console.log('args', args)
-  const base64data = img.replace(/^data:image\/png;base64,/, '')
-  fs.writeFile('/tmp/' + fileName, base64data, 'base64', (err) => {
-    if (err) {
-      console.log(err)
-    } else {
-      wallpaper.set(fileName, { scale: 'center' })
-    }
-  })
-  // event.sender.send('save-screenshot-reply', 'yay')
+
+  saveSelfie(fileName, img)
+  .then(path => wallpaper.set(path, { scale: 'fill' }))
+  .then(_ => event.sender.send('save-selfie-reply', 'selfie saved!'))
+  .catch(err => event.sender.send('save-selfie-error', err))
 })
 
+const saveSelfie = (fileName, img) => {
+  return new Promise((resolve, reject) => {
+    const picsDir = app.getPath('pictures')
+    const path = join(picsDir, 'UnSplash-Selfies', fileName)
+    const dir = dirname(path)
+
+    fs.ensureDir(dir, err => {
+      if (err) { reject(err) }
+
+      const base64data = img.replace(/^data:image\/png;base64,/, '')
+      fs.writeFile(path, base64data, 'base64', resolve(path))
+    })
+  })
+}
 
 const download = (url, path) => {
   return new Promise((resolve, reject) => {
