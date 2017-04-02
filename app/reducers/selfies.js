@@ -1,8 +1,8 @@
-const selfies = (state = { data: [] }, action) => {
+const selfies = (state = [], action) => {
   switch (action.type) {
     case 'APPEND_SELFIE':
-      return action.data
-    default:
+      return state.concat(action.data)
+    default :
       return state
   }
 }

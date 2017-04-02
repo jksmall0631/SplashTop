@@ -87,9 +87,9 @@ ipcMain.on('save-photo', (event, args) => {
 })
 
 ipcMain.on('save-screenshot', (event, args) => {
-  const { fileName, screenshot } = args
-
-  const base64data = screenshot.replace(/^data:image\/png;base64,/, '')
+  const { fileName, img } = args
+  console.log('args', args)
+  const base64data = img.replace(/^data:image\/png;base64,/, '')
   fs.writeFile('/tmp/' + fileName, base64data, 'base64', (err) => {
     if (err) {
       console.log(err)

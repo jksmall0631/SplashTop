@@ -5,9 +5,9 @@ export const storePics = (pics) => {
   }
 }
 
-export const appendSelfie = (selfie, createdAt) => {
+export const appendSelfie = (img, createdAt) => {
   return {
     type: 'APPEND_SELFIE',
-    data: { createdAt, selfie },
+    data: { createdAt, img },
   }
 }

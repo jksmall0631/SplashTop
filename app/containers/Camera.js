@@ -10,8 +10,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    appendSelfie: (createdAt, selfie) => {
-      dispatch(appendSelfie(createdAt, selfie))
+    appendSelfie: (img, createdAt) => {
+      dispatch(appendSelfie(img, createdAt))
     },
   }
 }
