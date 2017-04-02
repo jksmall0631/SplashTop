@@ -33,8 +33,9 @@ export default class Camera extends Component {
 
   render() {
     const last = this.props.selfies.length - 1
-    const selfies = this.props.selfies.length ? this.props.selfies.map((selfie, index) => {
-      return <Selfie index={index} src={selfie.img} />
+    const { selfies } = this.props
+    const allSelfies = selfies.length ? selfies.map((selfie, index) => {
+      return <Selfie key={index} index={index} src={selfie.img} />
     }) : null
 
     return (
@@ -42,7 +43,7 @@ export default class Camera extends Component {
         <Webcam className={styles.webCam} audio={false} ref='webcam' screenshotFormat='image/png' />
         <button className={styles.shutterBtn} onClick={this.screenshot}>Take Photo</button>
         <div className={styles.selfieList}>
-          {selfies}
+          {allSelfies}
         </div>
 
       </div>
