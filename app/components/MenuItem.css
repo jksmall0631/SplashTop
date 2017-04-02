@@ -20,6 +20,10 @@
 }
 */
 
+figure img {
+  max-width: 450px;
+}
+
 figure {
   margin: 0px;
 }
