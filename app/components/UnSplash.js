@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Thumbnail from './Thumbnail'
+import styles from './UnSplash.css'
 
 export default class UnSplash extends Component {
   render() {
@@ -11,7 +12,8 @@ export default class UnSplash extends Component {
     }
 
     return (
-      <div>
+      <div className={styles.main}>
+        <h4>Unsplash Photos</h4>
         {thumbnails}
       </div>
     )

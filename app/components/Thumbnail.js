@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import electron from 'electron'
 const remote = require('electron').remote
 const ipcRenderer = require('electron').ipcRenderer
+import styles from './Thumbnail.css'
 
 export default class Thumbnail extends Component {
   savePic() {
@@ -17,7 +18,8 @@ export default class Thumbnail extends Component {
 
   render() {
     return (
-      <img src={this.props.urls.thumb} onClick={() => this.savePic()} />
+      //use regular or small
+      <img className={styles.thumbnail} src={this.props.urls.regular} onClick={() => this.savePic()} />
     )
   }
 }

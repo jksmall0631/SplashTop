@@ -28,7 +28,7 @@ export default class Home extends Component {
 
   grabPhotos() {
     console.log('grab')
-    const url = 'https://api.unsplash.com/photos/random/?count=6&client_id=b7d9a9651c33cfd071e500dd4494a5c3c6653e34f38ea82fc889cf6aff8b0def'
+    const url = 'https://api.unsplash.com/photos/random/?count=12&client_id=b7d9a9651c33cfd071e500dd4494a5c3c6653e34f38ea82fc889cf6aff8b0def'
     fetch(url)
     .then(response => response.json())
     .then(response => {
