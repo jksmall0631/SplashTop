@@ -1,4 +1,4 @@
-.item {
+/*.item {
   display: inline-block;
   position: relative;
 }
@@ -18,10 +18,17 @@
   text-decoration: none;
   font-weight: 200;
 }
+*/
 
+figure {
+  margin: 0px;
+}
 
-/* Common style */
-.figure {
+img {
+  margin: 20px;
+}
+
+/*.figure {
 	position: relative;
 	float: left;
 	overflow: hidden;
@@ -50,4 +57,4 @@
 	min-height: 100%;
 	max-width: 100%;
 	opacity: 0.8;
-}
+}*/

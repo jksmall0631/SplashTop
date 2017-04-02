@@ -37,20 +37,10 @@ export default class Camera extends Component {
       return <Selfie index={index} src={selfie.img} />
     }) : null
 
-    const setWallpaperBtn = selfies
-      ? <button
-        className={styles.setWallpaperBtn}
-        onClick={this.savePic}
-      >
-        Set Wallpaper
-      </button>
-      : null
-
     return (
       <div className={styles.container}>
         <Webcam className={styles.webCam} audio={false} ref='webcam' screenshotFormat='image/png' />
         <button className={styles.shutterBtn} onClick={this.screenshot}>Take Photo</button>
-        {setWallpaperBtn}
         <div className={styles.selfieList}>
           {selfies}
         </div>
