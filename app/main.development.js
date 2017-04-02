@@ -2,30 +2,9 @@ import { app, BrowserWindow, ipcMain } from 'electron'
 import MenuBuilder from './menu'
 import { join, dirname } from 'path'
 const fs = require('fs-extra')
-
 const request = require('request')
 const wallpaper = require('wallpaper')
-
-
-const download = (url, path, callback) => {
-  request.head(url, (err, res, body) => {
-    if (err) {
-      console.log('There was an error downloading! Error: ', err)
-      return
-    }
-
-
-    const dir = dirname(path)
-
-    fs.ensureDir(dir, err => {
-      console.log(err) // => null
-
-      request(url).pipe(fs.createWriteStream(path)).on('close', callback)
-    })
-
-    // request(url).pipe(fs.createWriteStream('/tmp/' + filename)).on('close', callback)
-  })
-}
+require('isomorphic-fetch')
 
 let mainWindow = null
 
@@ -51,7 +30,7 @@ const installExtensions = async () => {
 
     const extensions = [
       'REACT_DEVELOPER_TOOLS',
-      'REDUX_DEVTOOLS'
+      'REDUX_DEVTOOLS',
     ]
 
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS
@@ -97,12 +76,12 @@ ipcMain.on('save-photo', (event, args) => {
 
   const { url, fileName } = args
   const picsDir = app.getPath('pictures')
-  const dest = join(picsDir, 'UnSplash-Wallpapers')
-  const path = join(dest, fileName)
+  const path = join(picsDir, 'UnSplash-Wallpapers', fileName)
 
-  download(url, path, () => setWallpaper(path))
-
-  // event.sender.send('save-photo-reply', '')
+  download(url, path)
+  .then(_ => wallpaper.set(path, { scale: 'fill' }))
+  .then(_ => event.sender.send('save-photo-success', 'photo saved!'))
+  .catch(err => event.sender.send('save-photo-error', err))
 })
 
 ipcMain.on('save-screenshot', (event, args) => {
@@ -113,16 +92,25 @@ ipcMain.on('save-screenshot', (event, args) => {
     if (err) {
       console.log(err)
     } else {
-      setWallpaper(fileName)
+      wallpaper.set(fileName, { scale: 'center' })
     }
   })
   // event.sender.send('save-screenshot-reply', 'yay')
 })
 
-const setWallpaper = (path) => {
-  wallpaper.set(path).then(() => {
-    console.log('done')
+
+const download = (url, path) => {
+  return new Promise((resolve, reject) => {
+    request.head(url, (err, res, body) => {
+      if (err) { reject(err) }
+      const dir = dirname(path)
+
+      fs.ensureDir(dir, err => {
+        if (err) { reject(err) }
+
+        request(url).pipe(fs.createWriteStream(path)).on('close', resolve)
+      })
+    })
   })
 }
-
 exports.download = download

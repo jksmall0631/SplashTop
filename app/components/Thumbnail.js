@@ -1,6 +1,4 @@
 import React, {Component} from 'react'
-import electron from 'electron'
-const remote = require('electron').remote
 const ipcRenderer = require('electron').ipcRenderer
 import styles from './Thumbnail.css'
 
@@ -11,14 +9,20 @@ export default class Thumbnail extends Component {
 
     ipcRenderer.send('save-photo', { fileName, url })
 
-    ipcRenderer.once('save-photo-reply', (event, arg) => {
-      console.log(arg)
+    ipcRenderer.once('save-photo-success', (event, args) => {
+      console.log('event', event)
+      console.log('args', args)
+    })
+    
+    ipcRenderer.once('save-photo-error', (event, args) => {
+      console.log('event', event)
+      console.log('args', args)
     })
   }
 
   render() {
+    // use regular or small
     return (
-      //use regular or small
       <img className={styles.thumbnail} src={this.props.urls.regular} onClick={() => this.savePic()} />
     )
   }
