@@ -1,0 +1,19 @@
+img {
+  align-self: center;
+}
+
+img:hover {
+  cursor: pointer;
+}
+
+h4 {
+  align-self: center;
+}
+
+@media screen and (max-width: 1080px) {
+
+	img {
+    width: 100%;
+  }
+
+}

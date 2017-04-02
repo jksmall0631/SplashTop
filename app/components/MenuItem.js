@@ -6,15 +6,15 @@ export default class MenuItem extends Component {
   render() {
     return (
       <figure className={styles.figure}>
-        <img className={styles.img} src={this.props.src} alt='img' />
-        <figcaption styleName='figcaption'>
-          <Link
-            to={this.props.route}
-            className={styles.title}
-            onClick={() => this.props.handleClick()}
+        <Link
+          to={this.props.route}
+          className={styles.title}
+          onClick={() => this.props.handleClick()}
           >
+          <img className={styles.img} src={this.props.src} alt='img' />
+        </Link>
+            <figcaption className={styles.figcaption}>
             <h2 className={styles.linkText}>{this.props.name}</h2>
-          </Link>
         </figcaption>
       </figure>
     )

@@ -1,13 +1,30 @@
-.grid {
+/*.grid {
 	position: relative;
 	margin: 0 auto;
 	padding: 1em 0 4em;
 	max-width: 1000px;
 	list-style: none;
 	text-align: center;
+}*/
+.choose {
+	margin-left: 35px;
+}
+.grid {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 50px;
 }
 
-.webcam-label {
-  text-decoration: none;
-  color: magenta;
+.webcam {
+	margin: 20px;
+	margin-right: 0px;
+}
+
+@media screen and (max-width: 950px) {
+
+	.grid {
+		flex-direction: column;
+		align-items: center;
+	}
+
 }

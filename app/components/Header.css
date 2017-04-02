@@ -1,7 +1,23 @@
-.home-button > a {
+.title {
+  font-size: 35px;
+  color: lightGrey;
+  display: inline-block;
+  float: right;
+  line-height: 10px;
+}
+
+.homeButton > a {
   background-color: green;
 }
 
 .bar {
-  background-color: grey;
+  padding: 30px;
+}
+
+.divider {
+  height: 1px;
+  width: 95%;
+  margin: auto;
+  margin-top: 25px;
+  background-color: lightGrey;
 }

@@ -28,7 +28,7 @@ export default class Home extends Component {
 
   grabPhotos() {
     console.log('grab')
-    const url = 'https://api.unsplash.com/photos/random/?count=6&client_id=b7d9a9651c33cfd071e500dd4494a5c3c6653e34f38ea82fc889cf6aff8b0def'
+    const url = 'https://api.unsplash.com/photos/random/?count=12&client_id=b7d9a9651c33cfd071e500dd4494a5c3c6653e34f38ea82fc889cf6aff8b0def'
     fetch(url)
     .then(response => response.json())
     .then(response => {
@@ -38,23 +38,25 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div className={styles.grid}>
-        <div>
-          <Link to='/camera'>
-            <Webcam audio={false} height={300} width={350}/>
-            <h2>Webcam</h2>
-          </Link>
-        </div>
+      <div>
+        <h2 className={styles.choose}>Choose a background source:</h2>
+        <div className={styles.grid}>
+          <div>
+            <MenuItem
+              name='Unsplash'
+              src='https://source.unsplash.com/random/450x350'
+              route='/unsplash'
+              handleClick={this.grabPhotos}
+            />
 
-        <div>
-          <MenuItem
-            name='Unsplash'
-            src='https://source.unsplash.com/random/350x300'
-            route='/unsplash'
-            handleClick={this.grabPhotos}
-          />
-
-          {/* <MenuItem name='Something Else' src='../assets/web-camera-icon.png' route='/camera' /> */}
+            {/* <MenuItem name='Something Else' src='../assets/web-camera-icon.png' route='/camera' /> */}
+          </div>
+          <div className={styles.webcam}>
+            <Link to='/camera'>
+              <Webcam audio={false} height={350} width={468}/>
+              <h2>Webcam</h2>
+            </Link>
+          </div>
         </div>
       </div>
     )
