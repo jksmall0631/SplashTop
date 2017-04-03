@@ -8,7 +8,7 @@ import BabiliPlugin from 'babili-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
 export default merge(baseConfig, {
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
 
   entry: ['babel-polyfill', './app/main.development'],
 
