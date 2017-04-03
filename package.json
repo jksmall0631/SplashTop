@@ -29,9 +29,13 @@
   },
   "browserslist": "electron 1.4",
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.develar.ElectronReact",
-    "category": "public.app-category.tools",
+    "productName": "SplashTop",
+    "appId": "com.unsplash.app",
+    "category": "public.app-category.utilities",
+    "icon": "app/assets/icons/mac/VaporwaveDroplet.png.icns",
+    "asar": {
+      "smartUnpack": true
+    },
     "dmg": {
       "contents": [
         {
@@ -204,6 +208,7 @@
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
     "react-router-redux": "^4.0.7",
+    "react-webcam": "0.0.14",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "source-map-support": "^0.4.10",

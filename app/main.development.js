@@ -52,6 +52,7 @@ app.on('ready', async () => {
     show: false,
     width: 1024,
     height: 728,
+    icon: join(__dirname, '/assets/icons/png/64x64.png'),
   })
 
   mainWindow.loadURL(`file://${__dirname}/app.html`)
@@ -102,7 +103,7 @@ ipcMain.on('save-selfie', (event, args) => {
       'message': 'Updated Your Desktop Wallpaper to Your Selfie',
       'sound': false,
     })
-    event.sender.send('save-selfie-reply', 'selfie saved!') 
+    event.sender.send('save-selfie-reply', 'selfie saved!')
   })
   .catch(err => event.sender.send('save-selfie-error', err))
 })
