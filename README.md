@@ -20,13 +20,13 @@
 
 [Electron Post Mortem](https://medium.com/@joshuakylesmall/electron-post-mortem-fd0a1cf3259c)
 
-###Eric Saylor:
+###Eric Sayler:
 
-[#1]()
+[Building Native Desktop Apps with Electron and React.js](https://medium.com/@e_a_s_/building-native-desktop-apps-with-electron-and-react-js-b74a289bf2ce)
 
-[#2]()
+[Electron Download Progress Bar](https://medium.com/@e_a_s_/electron-download-progress-bar-f420b72c7dec)
 
-[#3]()
+[First Electron Project Post-Mortem](https://medium.com/@e_a_s_/first-electron-project-post-mortem-6dd938829178)
 
 
 ## Attributions
