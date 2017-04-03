@@ -29,7 +29,7 @@
   },
   "browserslist": "electron 1.4",
   "build": {
-    "productName": "UnSplash",
+    "productName": "SplashTop",
     "appId": "com.unsplash.app",
     "category": "public.app-category.utilities",
     "icon": "app/assets/icons/mac/VaporwaveDroplet.png.icns",

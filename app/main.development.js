@@ -10,7 +10,6 @@ const progress = require('progress-stream')
 let mainWindow = null
 
 if (process.env.NODE_ENV === 'production') {
-  require('electron-debug')() // eslint-disable-line global-require
   const sourceMapSupport = require('source-map-support') // eslint-disable-line
   sourceMapSupport.install()
 }
@@ -27,7 +26,7 @@ app.on('window-all-closed', () => {
 })
 
 const installExtensions = async () => {
-  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'development') {
     const installer = require('electron-devtools-installer') // eslint-disable-line global-require
 
     const extensions = [
