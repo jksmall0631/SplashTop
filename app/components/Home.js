@@ -51,12 +51,11 @@ export default class Home extends Component {
 
             {/* <MenuItem name='Something Else' src='../assets/web-camera-icon.png' route='/camera' /> */}
           </div>
-          <div className={styles.webcam}>
+
             <Link to='/camera'>
               <Webcam audio={false} height={350} width={468}/>
               <h2>Webcam</h2>
             </Link>
-          </div>
         </div>
       </div>
     )
