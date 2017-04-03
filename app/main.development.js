@@ -75,8 +75,7 @@ app.on('ready', async () => {
 ipcMain.on('save-photo', (event, args) => {
   const { url, fileName } = args
   const picsDir = app.getPath('pictures')
-  const path = join(picsDir, 'UnSplash-Wallpapers', fileName)
-
+  const path = join(picsDir, 'SplashTop-Wallpapers', fileName)
   downloadPic(url, path)
   .then(_ => wallpaper.set(path, { scale: 'fill' }))
   .then(_ => {
@@ -111,7 +110,7 @@ ipcMain.on('save-selfie', (event, args) => {
 const saveSelfie = (fileName, img) => {
   return new Promise((resolve, reject) => {
     const picsDir = app.getPath('pictures')
-    const path = join(picsDir, 'UnSplash-Selfies', fileName)
+    const path = join(picsDir, 'SplashTop-Selfies', fileName)
     const dir = dirname(path)
 
     fs.ensureDir(dir, err => {
