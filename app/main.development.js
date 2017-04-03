@@ -4,7 +4,8 @@ import { join, dirname } from 'path'
 const fs = require('fs-extra')
 const request = require('request')
 const wallpaper = require('wallpaper')
-require('isomorphic-fetch')
+const notifier = require('node-notifier')
+const progress = require('progress-stream')
 
 let mainWindow = null
 
@@ -72,15 +73,22 @@ app.on('ready', async () => {
 })
 
 ipcMain.on('save-photo', (event, args) => {
-  console.log(args)
-
   const { url, fileName } = args
   const picsDir = app.getPath('pictures')
   const path = join(picsDir, 'UnSplash-Wallpapers', fileName)
 
-  download(url, path)
+  downloadPic(url, path)
   .then(_ => wallpaper.set(path, { scale: 'fill' }))
-  .then(_ => event.sender.send('save-photo-success', 'photo saved!'))
+  .then(_ => {
+    notifier.notify({
+      'title': 'Wallpaper Updated',
+      'message': 'Updated Your Desktop Wallpaper',
+      'sound': false,
+      'contentImage': path,
+    })
+    mainWindow.setProgressBar(-1)
+    event.sender.send('save-photo-success', 'photo saved!')
+  })
   .catch(err => event.sender.send('save-photo-error', err))
 })
 
@@ -89,7 +97,14 @@ ipcMain.on('save-selfie', (event, args) => {
 
   saveSelfie(fileName, img)
   .then(path => wallpaper.set(path, { scale: 'fill' }))
-  .then(_ => event.sender.send('save-selfie-reply', 'selfie saved!'))
+  .then(_ => {
+    notifier.notify({
+      'title': 'Wallpaper Updated',
+      'message': 'Updated Your Desktop Wallpaper to Your Selfie',
+      'sound': false,
+    })
+    event.sender.send('save-selfie-reply', 'selfie saved!') 
+  })
   .catch(err => event.sender.send('save-selfie-error', err))
 })
 
@@ -101,25 +116,33 @@ const saveSelfie = (fileName, img) => {
 
     fs.ensureDir(dir, err => {
       if (err) { reject(err) }
-
       const base64data = img.replace(/^data:image\/png;base64,/, '')
       fs.writeFile(path, base64data, 'base64', resolve(path))
     })
   })
 }
 
-const download = (url, path) => {
+const downloadPic = (url, path) => {
   return new Promise((resolve, reject) => {
-    request.head(url, (err, res, body) => {
+    const dir = dirname(path)
+
+    fs.ensureDir(dir, err => {
       if (err) { reject(err) }
-      const dir = dirname(path)
 
-      fs.ensureDir(dir, err => {
-        if (err) { reject(err) }
+      let stream = progress({ time: 50 })
 
-        request(url).pipe(fs.createWriteStream(path)).on('close', resolve)
+      stream.on('progress', progress => {
+        mainWindow.setProgressBar(progress.percentage / 100.0)
       })
+
+      request
+        .get(url)
+        .on('response', res => {
+          stream.setLength(res.headers['content-length'])
+        })
+        .pipe(stream)
+        .pipe(fs.createWriteStream(path))
+        .on('close', resolve)
     })
   })
 }
-exports.download = download
